@@ -120,8 +120,8 @@ maclaurin expr x n
     where
       factorials     = scanl (*) 1 [1..]
 -- scanl recursively applies function to compute factorials of numbers; 
--- no need to take n values.
-      functionValues = take n (iterate( flip diff "x") expr)
+-- no need to use take due to lazy eval.
+      functionValues = take n $ iterate( flip diff "x") expr
       powersOfX      = iterate  (x * ) 1
       evaluated      = map (flip eval  [("x", 0)]) functionValues
 
